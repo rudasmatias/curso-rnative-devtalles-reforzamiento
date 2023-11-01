@@ -3,6 +3,7 @@ import ObjectosLiterales from "./typescript/ObjectosLiterales";
 import TiposBasicos from "./typescript/TiposBasicos";
 import Contador from "./components/Contador";
 import ContadorConHook from "./components/ContadorConHook";
+import Login from "./components/Login";
 
 const App = () => {
   return (
@@ -18,6 +19,8 @@ const App = () => {
       <Contador />
       <hr />
       <ContadorConHook />
+      <hr />
+      <Login />
     </div>
   );
 };
