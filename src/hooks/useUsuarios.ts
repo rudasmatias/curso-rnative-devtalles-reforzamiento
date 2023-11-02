@@ -13,28 +13,38 @@ const useUsuarios = () => {
   }, []);
 
   const cargarUsuarios = async () => {
-    try {
-      const res = await getUsers<TopLevel>("/users", {
-        params: {
-          page: pageRef.current,
-        },
-      });
+    const res = await getUsers<TopLevel>("/users", {
+      params: {
+        page: pageRef.current,
+      },
+    });
 
-      if (res.data.data.length > 0) {
-        setUsuario(res.data.data);
-        pageRef.current++;
-      } else {
-        alert("No hay más registros");
-      }
-    } catch (error) {
-      console.log(error);
+    if (res.data.data.length > 0) {
+      setUsuario(res.data.data);
+    } else {
+      pageRef.current--;
+      alert("No hay más registros");
+    }
+  };
+
+  const paginaSiguiente = () => {
+    pageRef.current++;
+    console.log(pageRef.current);
+    cargarUsuarios();
+  };
+
+  const paginaAnterior = () => {
+    if (pageRef.current > 1) {
+      pageRef.current--;
+      console.log(pageRef.current);
+      cargarUsuarios();
     }
   };
 
   return {
-    cargarUsuarios,
     usuario,
-    setUsuario,
+    paginaAnterior,
+    paginaSiguiente,
   };
 };
 

@@ -48,7 +48,7 @@ const Usuarios = () => {
   //     }
   //   };
 
-  const { cargarUsuarios, usuario } = useUsuarios();
+  const { paginaAnterior, paginaSiguiente, usuario } = useUsuarios();
 
   const renderItem = (usuario: User) => {
     return (
@@ -111,11 +111,11 @@ const Usuarios = () => {
         </tbody>
       </table>
       {/* Paginación */}
-      <button className="btn btn-primary" onClick={cargarUsuarios}>
+      <button className="btn btn-primary" onClick={paginaAnterior}>
         Anteriores
       </button>
 
-      <button className="btn btn-primary m-1" onClick={cargarUsuarios}>
+      <button className="btn btn-primary m-1" onClick={paginaSiguiente}>
         Siguientes
       </button>
     </>
