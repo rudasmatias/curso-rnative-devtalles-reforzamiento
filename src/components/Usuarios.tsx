@@ -1,22 +1,54 @@
-import { useEffect, useState } from "react";
+/* import { useEffect, useRef, useState } from "react";
 import { getUsers } from "../api/reqRes";
-import { TopLevel, User } from "../interfaces/reqRes";
+import { TopLevel, User } from "../interfaces/reqRes"; */
+import { User } from "../interfaces/reqRes";
+import useUsuarios from "../hooks/useUsuarios";
 
 //Endpoint a utilizar: https://reqres.in/api/users?page=2
 
 const Usuarios = () => {
-  const [usuario, setUsuario] = useState<User[]>([]);
+  //   const [usuario, setUsuario] = useState<User[]>([]);
+  //   const pageRef = useRef(1);
 
-  useEffect(() => {
-    //Llamado a api
-    //Las interfaces no ocupan espacio en memoria, por lo que por más que tengan definidos 1 millon de tipo, no pesa nada
-    //Me autocompleta todas las key de los objetos de la api
-    getUsers<TopLevel>("/users")
-      .then((res) => {
-        setUsuario(res.data.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  //   useEffect(() => {
+  //     //Llamado a api
+  //     //Las interfaces no ocupan espacio en memoria, por lo que por más que tengan definidos 1 millon de tipo, no pesa nada
+  //     //Me autocompleta todas las key de los objetos de la api
+  //     /*     getUsers<TopLevel>("/users")
+  //       .then((res) => {
+  //         setUsuario(res.data.data);
+  //       })
+  //       .catch((err) => console.log(err));*/
+  //     /*   return () => {
+  //         cargarUsuarios();
+  //       }; */
+
+  //     return () => {
+  //       cargarUsuarios();
+  //     };
+  //   }, []);
+
+  //   const cargarUsuarios = async () => {
+  //     try {
+  //       const res = await getUsers<TopLevel>("/users", {
+  //         params: {
+  //           page: pageRef.current,
+  //         },
+  //       });
+
+  //       //Verifico si hay información en la data (hay elementos en el array de usuarios)
+  //       if (res.data.data.length > 0) {
+  //         setUsuario(res.data.data);
+  //         pageRef.current++;
+  //       } else {
+  //         alert("No hay más registros");
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+
+  const { cargarUsuarios, usuario } = useUsuarios();
 
   const renderItem = (usuario: User) => {
     return (
@@ -44,6 +76,8 @@ const Usuarios = () => {
   //       </tr>
   //     );
   //   };
+
+  //Utilizo una función reutilizable con un formato asyc await para manejar la promesa del axios y trycatch para manejar errores
 
   return (
     <>
@@ -76,7 +110,14 @@ const Usuarios = () => {
           {usuario.map((usuario: User) => renderItem(usuario))}
         </tbody>
       </table>
-      <button className="btn btn-primary">Siguientes</button>
+      {/* Paginación */}
+      <button className="btn btn-primary" onClick={cargarUsuarios}>
+        Anteriores
+      </button>
+
+      <button className="btn btn-primary m-1" onClick={cargarUsuarios}>
+        Siguientes
+      </button>
     </>
   );
 };
