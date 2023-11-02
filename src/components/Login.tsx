@@ -83,7 +83,7 @@ const Login = () => {
               <div className="alert alert-success">
                 Autenticado como: {nombre}
               </div>
-              <button className="btn btn-danger m-1" onClick={logout}>
+              <button className="btn btn-danger" onClick={logout}>
                 Logout
               </button>
             </div>
